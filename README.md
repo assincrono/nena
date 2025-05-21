@@ -1,7 +1,7 @@
 # git-cli-go
 So, usually, to commit to a repo, I need to:
 
-```git
+```bash
 git add *
 git commit -m "commit message"
 git push
@@ -9,7 +9,7 @@ git push
 
 So I abstracted this into:
 
-```git
+```bash
 git-go -m="commit message"
 ```
 
@@ -17,7 +17,7 @@ Which runs the 3 commands above.
 
 And, lately, for some very specific reason, I needed to be posting the same commit history to two git repositories, which would be something like:
 
-```git
+```bash
 git add *
 git commit -m "commit message"
 git push
@@ -32,7 +32,7 @@ git remote add origin github.com/1
 
 As this was starting to getting annoying, I abstracted into:
 
-```git
+```bash
 git-go -c=true -m="commit message"
 ```
 
