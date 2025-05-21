@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 	"os/exec"
 )
 
@@ -16,7 +17,7 @@ func main() {
 	if *changeOrigin == "false" {
 		commitPush(*commitMessage)
 	} else {
-
+		commitPushTwoRepos(*commitMessage)
 	}
 
 	fmt.Println(green, "Pushed!")
@@ -25,11 +26,11 @@ func main() {
 func commitPushTwoRepos(commitMessage string) {
 	commitPush(commitMessage)
 	exec.Command("git", "remote", "rm", "origin").Run()
-	exec.Command("git", "remote", "add", "origin").Run()
+	exec.Command("git", "remote", "add", os.Getenv("sideRepo")).Run()
 
 	commitPush(commitMessage)
 	exec.Command("git", "remote", "rm", "origin").Run()
-	exec.Command("git", "remote", "add", "origin").Run()
+	exec.Command("git", "remote", "add", os.Getenv("originalRepo")).Run()
 }
 
 func commitPush(commitMessage string) {
