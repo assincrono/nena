@@ -22,21 +22,41 @@ func main() {
 }
 
 func commitPushTwoRepos(commitMessage string) {
-	exec.Command("git", "add", "*").Run()
-	exec.Command("git", "commit", "-m", commitMessage).Run()
-	exec.Command("git", "push", "--set-upstream", "origin", "main").Run()
+	// Stage changes
+	runCommand("git", "add", "*")
 
-	exec.Command("git", "remote", "rm", "origin").Run()
-	exec.Command("git", "remote", "add", os.Getenv("sideRepo")).Run()
-	exec.Command("git", "push", "--set-upstream", "origin", "main").Run()
+	// Commit
+	runCommand("git", "commit", "-m", commitMessage)
 
-	exec.Command("git", "remote", "rm", "origin").Run()
-	exec.Command("git", "remote", "add", os.Getenv("sideRepo")).Run()
+	// Push to main repo
+	runCommand("git", "push", "--set-upstream", "origin", "main")
 
+	// Change remote to sideRepo
+	runCommand("git", "remote", "rm", "origin")
+	runCommand("git", "remote", "add", "origin", os.Getenv("sideRepo"))
+
+	// Push to sideRepo
+	runCommand("git", "push", "--set-upstream", "origin", "main")
+
+	// Clean up (optional, re-add remote or reset state if needed)
+	runCommand("git", "remote", "rm", "origin")
+	runCommand("git", "remote", "add", "origin", os.Getenv("sideRepo"))
 }
 
 func commitPush(commitMessage string) {
-	exec.Command("git", "add", "*").Run()
-	exec.Command("git", "commit", "-m", commitMessage).Run()
-	exec.Command("git", "push").Run()
+	runCommand("git", "add", "*")
+	runCommand("git", "commit", "-m", commitMessage)
+	runCommand("git", "push")
+}
+
+func runCommand(name string, args ...string) {
+	cmd := exec.Command(name, args...)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err := cmd.Run()
+	if err != nil {
+		fmt.Printf("Error running command: %s %v\nError: %v\n", name, args, err)
+	} else {
+		fmt.Printf("Successfully ran: %s %v\n", name, args)
+	}
 }
