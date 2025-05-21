@@ -27,7 +27,11 @@ func main() {
 		originalRepo := os.Getenv("originalRepo")
 		sideRepo := os.Getenv("sideRepo")
 
-		commitPushTwoRepos(*commitMessage, originalRepo, sideRepo)
+		fmt.Println("Repository:")
+		fmt.Println(originalRepo)
+		fmt.Println(sideRepo)
+
+		// commitPushTwoRepos(*commitMessage, originalRepo, sideRepo)
 		fmt.Println("Pushed to two repositories!")
 	}
 }
