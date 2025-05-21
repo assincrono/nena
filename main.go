@@ -22,25 +22,22 @@ func main() {
 }
 
 func commitPushTwoRepos(commitMessage string) {
-	// Stage changes
+	// Commit setup
 	runCommand("git", "add", "*")
-
-	// Commit
 	runCommand("git", "commit", "-m", commitMessage)
 
 	// Push to main repo
+	runCommand("git", "remote", "add", "origin", os.Getenv("originalRepo"))
 	runCommand("git", "push", "--set-upstream", "origin", "main")
 
-	// Change remote to sideRepo
+	// Push to side repo
 	runCommand("git", "remote", "rm", "origin")
 	runCommand("git", "remote", "add", "origin", os.Getenv("sideRepo"))
-
-	// Push to sideRepo
 	runCommand("git", "push", "--set-upstream", "origin", "main")
 
-	// Clean up (optional, re-add remote or reset state if needed)
+	// Clean up
 	runCommand("git", "remote", "rm", "origin")
-	runCommand("git", "remote", "add", "origin", os.Getenv("sideRepo"))
+	runCommand("git", "remote", "add", "origin", os.Getenv("originalRepo"))
 }
 
 func commitPush(commitMessage string) {
