@@ -24,13 +24,16 @@ func main() {
 }
 
 func commitPushTwoRepos(commitMessage string) {
-	commitPush(commitMessage)
+	exec.Command("git", "add", "*").Run()
+	exec.Command("git", "commit", "-m", commitMessage).Run()
+	exec.Command("git", "push", "--set-upstream", "origin", "main").Run()
+
 	exec.Command("git", "remote", "rm", "origin").Run()
 	exec.Command("git", "remote", "add", os.Getenv("sideRepo")).Run()
+	exec.Command("git", "push", "--set-upstream", "origin", "main").Run()
 
-	commitPush(commitMessage)
 	exec.Command("git", "remote", "rm", "origin").Run()
-	exec.Command("git", "remote", "add", os.Getenv("originalRepo")).Run()
+	exec.Command("git", "remote", "add", os.Getenv("sideRepo")).Run()
 }
 
 func commitPush(commitMessage string) {
