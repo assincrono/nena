@@ -3,8 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -16,28 +19,36 @@ func main() {
 		commitPush(*commitMessage)
 		fmt.Println("Pushed!")
 	} else {
-		commitPushTwoRepos(*commitMessage)
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
+
+		originalRepo := os.Getenv("originalRepo")
+		sideRepo := os.Getenv("sideRepo")
+
+		commitPushTwoRepos(*commitMessage, originalRepo, sideRepo)
 		fmt.Println("Pushed to two repositories!")
 	}
 }
 
-func commitPushTwoRepos(commitMessage string) {
+func commitPushTwoRepos(commitMessage, originalRepo, sideRepo string) {
 	// Commit setup
 	runCommand("git", "add", "*")
 	runCommand("git", "commit", "-m", commitMessage)
 
 	// Push to main repo
-	runCommand("git", "remote", "add", "origin", os.Getenv("originalRepo"))
+	runCommand("git", "remote", "add", "origin", originalRepo)
 	runCommand("git", "push", "--set-upstream", "origin", "main")
 
 	// Push to side repo
 	runCommand("git", "remote", "rm", "origin")
-	runCommand("git", "remote", "add", "origin", os.Getenv("sideRepo"))
+	runCommand("git", "remote", "add", "origin", sideRepo)
 	runCommand("git", "push", "--set-upstream", "origin", "main")
 
 	// Clean up
 	runCommand("git", "remote", "rm", "origin")
-	runCommand("git", "remote", "add", "origin", os.Getenv("originalRepo"))
+	runCommand("git", "remote", "add", "origin", originalRepo)
 }
 
 func commitPush(commitMessage string) {
