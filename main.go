@@ -8,19 +8,17 @@ import (
 )
 
 func main() {
-	green := "\033[32m"
-
 	changeOrigin := flag.String("c", "false", "commits to two repositories")
 	commitMessage := flag.String("m", "World", "name to greet")
 	flag.Parse()
 
 	if *changeOrigin == "false" {
 		commitPush(*commitMessage)
+		fmt.Println("Pushed!")
 	} else {
 		commitPushTwoRepos(*commitMessage)
+		fmt.Println("Pushed to two repositories!")
 	}
-
-	fmt.Println(green, "Pushed!")
 }
 
 func commitPushTwoRepos(commitMessage string) {
@@ -34,6 +32,7 @@ func commitPushTwoRepos(commitMessage string) {
 
 	exec.Command("git", "remote", "rm", "origin").Run()
 	exec.Command("git", "remote", "add", os.Getenv("sideRepo")).Run()
+
 }
 
 func commitPush(commitMessage string) {
