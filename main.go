@@ -3,11 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 	"os"
 	"os/exec"
-
-	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -19,19 +16,11 @@ func main() {
 		commitPush(*commitMessage)
 		fmt.Println("Pushed!")
 	} else {
-		err := godotenv.Load()
-		if err != nil {
-			log.Fatal("Error loading .env file")
-		}
 
-		originalRepo := os.Getenv("originalRepo")
-		sideRepo := os.Getenv("sideRepo")
+		originalRepo := "https://github.com/orladigital/indexa-web.git"
+		sideRepo := "https://github.com/nandowastaken/indexa-web-vercel.git"
 
-		fmt.Println("Repository:")
-		fmt.Println(originalRepo)
-		fmt.Println(sideRepo)
-
-		// commitPushTwoRepos(*commitMessage, originalRepo, sideRepo)
+		commitPushTwoRepos(*commitMessage, originalRepo, sideRepo)
 		fmt.Println("Pushed to two repositories!")
 	}
 }
