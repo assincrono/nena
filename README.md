@@ -30,7 +30,7 @@ git remote rm origin
 git remote add origin github.com/1
 ```
 
-As this was starting to getting annoying, I abstracted into:
+As this was starting to get annoying, I abstracted into:
 
 ```bash
 git-go -c=true -m="commit message"
