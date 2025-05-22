@@ -15,33 +15,7 @@ func main() {
 	if *changeOrigin == "false" {
 		commitPush(*commitMessage)
 		fmt.Println("Pushed!")
-	} else {
-
-		originalRepo := "https://github.com/orladigital/indexa-web.git"
-		sideRepo := "https://github.com/nandowastaken/indexa-web-vercel.git"
-
-		commitPushTwoRepos(*commitMessage, originalRepo, sideRepo)
-		fmt.Println("Pushed to two repositories!")
 	}
-}
-
-func commitPushTwoRepos(commitMessage, originalRepo, sideRepo string) {
-	// Commit setup
-	runCommand("git", "add", "*")
-	runCommand("git", "commit", "-m", commitMessage)
-
-	// Push to main repo
-	runCommand("git", "remote", "add", "origin", originalRepo)
-	runCommand("git", "push", "--set-upstream", "origin", "main")
-
-	// Push to side repo
-	runCommand("git", "remote", "rm", "origin")
-	runCommand("git", "remote", "add", "origin", sideRepo)
-	runCommand("git", "push", "--set-upstream", "origin", "main")
-
-	// Clean up
-	runCommand("git", "remote", "rm", "origin")
-	runCommand("git", "remote", "add", "origin", originalRepo)
 }
 
 func commitPush(commitMessage string) {
