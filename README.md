@@ -14,28 +14,7 @@ Nena abstracts them into a single command, which internally runs the 3 git comma
 nena -m="commit message"
 ```
 
-Lately, I've also been running into a very specific issue, in which I need to commit the same git historic to two different repositories. Which would look like this:
-
-```bash
-git add *
-git commit -m "commit message"
-git push
-
-git remote rm origin
-git remote add origin github.com/2
-git push
-
-git remote rm origin
-git remote add origin github.com/1
-```
-
-Nena abstracts this weird necessity into a single command:
-
-```bash
-nena -c=true -m="commit message"
-```
-
-Yes, so now I don't need to write 8 commands whenever I want to make a deploy, so yaay!
+So now I reduced the amount of git commands I do per day by 3 times, yipeee!
 
 ## Installation guide
 
