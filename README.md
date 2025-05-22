@@ -1,6 +1,6 @@
 # Nena
 
-So, usually, to commit to a repo, I need to:
+Git commands can get quite repetitive when you do dozens a day. So I wrote Nena to run away a little bit from the verbose. For example, usually, when you are going to add something into a repository, you need to do these 3 commands:
 
 ```bash
 git add *
@@ -8,15 +8,13 @@ git commit -m "commit message"
 git push
 ```
 
-So I abstracted this into:
+Nena abstracts them into a single command, which internally runs the 3 git commands above:
 
 ```bash
-git-go -m="commit message"
+nena -m="commit message"
 ```
 
-Which runs the 3 commands above.
-
-And, lately, for some very specific reason, I needed to be posting the same commit history to two git repositories, which would be something like:
+Lately, I've also been running into a very specific issue, in which I need to commit the same git historic to two different repositories. Which would look like this:
 
 ```bash
 git add *
@@ -31,28 +29,20 @@ git remote rm origin
 git remote add origin github.com/1
 ```
 
-As this was starting to get annoying, I abstracted into:
+Nena abstracts this weird necessity into a single command:
 
 ```bash
-git-go -c=true -m="commit message"
+nena -c=true -m="commit message"
 ```
 
 Yes, so now I don't need to write 8 commands whenever I want to make a deploy, so yaay!
 
 ## Installation guide
 
-Welp, it is pretty easy. First, clone this repo. Then, build the project:
+It's pretty easy to install Nena, actually. You just need to have Golang installed on your machine and run the following commmand:
 
 ```go
-go build -o git-go
+go install github.com/nandowastaken/nena
 ```
 
-And move this to your path, this is how I do it at MacOs:
-
-```bash
-sudo mv git-go /usr/local/bin/
-```
-
-If you are using another OS, probably you will need to find another way to move to path, but it shouldn't be too hard.
-
-After that, you can just invoke the commands as mentioned before.
+After this, you are good to go, just use Nena as much as you want to!
