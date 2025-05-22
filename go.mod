@@ -1,4 +1,4 @@
-module github.com/nandowastaken/git-go-cli
+module github.com/nandowastaken/nena
 
 go 1.23.5
 
