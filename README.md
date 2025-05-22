@@ -1,4 +1,5 @@
-# git-cli-go
+# Nena
+
 So, usually, to commit to a repo, I need to:
 
 ```bash
@@ -13,7 +14,7 @@ So I abstracted this into:
 git-go -m="commit message"
 ```
 
-Which runs the 3 commands above. 
+Which runs the 3 commands above.
 
 And, lately, for some very specific reason, I needed to be posting the same commit history to two git repositories, which would be something like:
 
@@ -36,7 +37,7 @@ As this was starting to get annoying, I abstracted into:
 git-go -c=true -m="commit message"
 ```
 
-Yes, so now I don't need to write 8 commands whenever I want to make a deploy, so yaay! 
+Yes, so now I don't need to write 8 commands whenever I want to make a deploy, so yaay!
 
 ## Installation guide
 
@@ -54,5 +55,4 @@ sudo mv git-go /usr/local/bin/
 
 If you are using another OS, probably you will need to find another way to move to path, but it shouldn't be too hard.
 
-After that, you can just invoke the commands as mentioned before. 
-
+After that, you can just invoke the commands as mentioned before.
