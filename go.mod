@@ -1,4 +1,4 @@
-module github.com/nandowastaken/nena
+module github.com/assincrono/nena
 
 go 1.23.5
 
