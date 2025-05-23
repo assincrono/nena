@@ -21,7 +21,7 @@ So now I reduced the amount of git commands I do per day by 3 times, yipeee!
 It's pretty easy to install Nena, actually. You just need to have Golang installed on your machine and run the following commmand:
 
 ```go
-go install github.com/nandowastaken/nena
+go install github.com/assincrono/nena
 ```
 
 After this, you are good to go, just use Nena as much as you want to!
